@@ -1,0 +1,36 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	}
+html,
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 1.5;
+	color: #272727;
+	}
+
+.airSticky {
+	position: relative;
+	margin-top: 20px;
+	overflow: hidden;
+	}
+
+.banner {
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	}
+.banner img {
+	width: 100%;
+	height: auto;
+	}
+
+.footer__container {
+	color: #ffffff;
+	background: #666666;
+	}
+
+
