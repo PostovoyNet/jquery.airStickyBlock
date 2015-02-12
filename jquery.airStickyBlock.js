@@ -28,7 +28,7 @@
             // Настройки по умолчанию
             settings = $.extend({
                 debug           : false,
-                stopBlock       : '.airSticky__stop-block'
+                stopBlock       : '.airSticky_stop-block'
             }, options);
             // Sticky Stop Block
             stopBlock = $(settings.stopBlock);
