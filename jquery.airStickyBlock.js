@@ -160,7 +160,7 @@
             /**
              * Обработка событий
              */
-            $(window).bind('resize scroll orientationchange', function() {
+            $(window).bind('resize scroll orientationchange', function(event) {
 
                 if(event.type == 'scroll' && stickyStop > stickyStart && stopBlockWidth > stickyWidth) airStickyGo();
                 else {
