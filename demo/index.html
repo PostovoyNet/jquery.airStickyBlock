@@ -160,11 +160,12 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="../jquery.airStickyBlock.min.js"></script>
+<script src="../jquery.airStickyBlock.js?as"></script>
 <script>
     jQuery(document).ready(function($){
         window.onload = function() {
             $('.airSticky').airStickyBlock({
+                debug: true,
                 stopBlock: '.airSticky_stop-block',
                 offsetTop: 100
             });
