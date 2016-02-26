@@ -28,7 +28,8 @@
             // Настройки по умолчанию
             settings = $.extend({
                 debug           : false,
-                stopBlock       : '.airSticky_stop-block'
+                stopBlock       : '.airSticky_stop-block',
+                offsetTop       : 0
             }, options);
             // Sticky Stop Block
             stopBlock = $(settings.stopBlock);
@@ -90,7 +91,7 @@
              */
             function airStickyGo(){
                 // Прокрутка от начала координат
-                scrollTop = $(window).scrollTop();
+                scrollTop = $(window).scrollTop()+settings.offsetTop;
 
                 if(settings.debug){
                     $('#airSticky-debug').html(
@@ -134,7 +135,7 @@
                     case 'fixed':
                         $this.css({
                             'position': position,
-                            'top': 0
+                            'top': settings.offsetTop + 'px'
                         }).removeClass('airSticky_absolute airSticky_relative').addClass('airSticky_fixed');
                         break;
                     case 'absolute':
