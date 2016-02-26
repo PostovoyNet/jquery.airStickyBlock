@@ -9,21 +9,15 @@ jQuery скрипт фиксации "липкого" блока при скро
 -*Добавлен обработчик перерисовки*
 
 #### Инициализация: 
-`
-$('.airSticky').airStickyBlock();
-`
+<pre>$('.airSticky').airStickyBlock();</pre>
 
 #### Настройки:
-`
-$('.airSticky').airStickyBlock({
+<pre>$('.airSticky').airStickyBlock({
   debug: false, // Режим отладки, по умолчанию false
   stopBlock: '.airSticky_stop-block', // Класса контейнера, в котором находится сетка, по умолчанию .airSticky_stop-block
   offsetTop: 0 // отступ сверху
-});
-`
+});</pre>
 
 #### Событие перерисовки позиции:
-**пересчитает позицию**
-`
-$('.some_class').trigger('render.airStickyBlock');
-`
+*пересчитает позицию*
+<pre>$('.some_class').trigger('render.airStickyBlock');</pre>
