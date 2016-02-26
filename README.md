@@ -4,18 +4,26 @@ jQuery скрипт фиксации "липкого" блока при скро
 
 Подробнее [http://postovoy.net](http://postovoy.net/jquery-plagin-fiksiruyuschegosya-lipkogo-bloka.html)
 
-### Инициализация: 
-<pre>
+### Fork
+-*Добавлена возможность устанавливать отступ сверху*
+-*Добавлен обработчик перерисовки*
+
+#### Инициализация: 
+`
 $('.airSticky').airStickyBlock();
-</pre>
+`
 
-### Настройки
-<pre>
+#### Настройки:
+`
 $('.airSticky').airStickyBlock({
-     debug: false, // Режим отладки, по умолчанию false
-     stopBlock: '.airSticky_stop-block', // Класса контейнера, в котором находится сетка, по умолчанию .airSticky_stop-block
-     offsetTop: 0 // отступ сверху
- });
-</pre>
+  debug: false, // Режим отладки, по умолчанию false
+  stopBlock: '.airSticky_stop-block', // Класса контейнера, в котором находится сетка, по умолчанию .airSticky_stop-block
+  offsetTop: 0 // отступ сверху
+});
+`
 
--*добавлена возможность устанавливать отступ сверху*
+#### Событие перерисовки позиции:
+**пересчитает позицию**
+`
+$('.some_class').trigger('render.airStickyBlock');
+`

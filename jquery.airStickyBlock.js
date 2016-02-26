@@ -158,21 +158,37 @@
             } setWidthSticky();
 
             /**
+             * Перерисовка
+             */
+            function render(){
+                setDefault($this);
+                setAmount();
+                if(stickyStop > stickyStart && stopBlockWidth > stickyWidth){
+                    setWidthSticky();
+                    airStickyGo();
+                }
+            }
+
+            /**
              * Обработка событий
              */
-            $(window).bind('resize scroll orientationchange', function(event) {
+            $(window).bind('resize.airStickyBlock scroll.airStickyBlock orientationchange.airStickyBlock', function(event) {
 
-                if(event.type == 'scroll' && stickyStop > stickyStart && stopBlockWidth > stickyWidth) airStickyGo();
+                if(event.type == 'scroll' && stickyStop > stickyStart && stopBlockWidth > stickyWidth){
+                    airStickyGo();
+                }
                 else {
-                    setDefault($this);
-                    setAmount();
-                    if(stickyStop > stickyStart && stopBlockWidth > stickyWidth){
-                        setWidthSticky();
-                        airStickyGo();
-                    }
+                    render();
                 }
 
-            })
+            });
+
+            /**
+             * Свой обработчик перерисовки
+             */
+            $(window).bind('render.airStickyBlock', function(event) {
+                render();
+            });
 
         };
 
