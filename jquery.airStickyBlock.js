@@ -28,16 +28,13 @@
             // Настройки по умолчанию
             settings = $.extend({
                 debug           : false,
-                stopBlock       : '.airSticky_stop-block'
+                stopBlock       : '.airSticky_stop-block',
+                offsetTop       : 0
             }, options);
             // Sticky Stop Block
             stopBlock = $(settings.stopBlock);
             // Сайдбар
             stickyParent = $this.parent();
-
-            if(settings.debug){
-                $('body').append('<div id="airSticky-debug" style="position: fixed;top: 0;left: 0;padding: 10px;background: #272727;color: #9d9d9d;z-index: 1000;opacity: 0.9;">');
-            }
 
             /**
              * Пересчитываем все переменные
@@ -90,23 +87,26 @@
              */
             function airStickyGo(){
                 // Прокрутка от начала координат
-                scrollTop = $(window).scrollTop();
+                scrollTop = $(window).scrollTop()+settings.offsetTop;
 
                 if(settings.debug){
-                    $('#airSticky-debug').html(
-                        '<p>windowHeight - ' + windowHeight + '</p>' +
-                        '<p>stopBlockHeight - ' + stopBlockHeight + '</p>' +
-                        '<p>stopBlockWidth - ' + stopBlockWidth + '</p>' +
-                        '<p>stopBlockOffset - ' + stopBlockOffset + '</p>' +
-                        '<p>stickyParentOffset - ' + stickyParentOffset + '</p>' +
-                        '<p>stickyParentWidth - ' + stickyParentWidth + '</p>' +
-                        '<p>stickyHeight - ' + stickyHeight + '</p>' +
-                        '<p>stickyWidth - ' + stickyWidth + '</p>' +
-                        '<p>stickyStop - ' + stickyStop + '</p>' +
-                        '<p>stickyStart - ' + stickyStart + '</p>' +
-                        '<p>stickyAbsolute - ' + stickyAbsolute + '</p>' +
-                        '<p>scrollTop - ' + scrollTop + '</p>'
-                    );
+                    console.clear();
+                    console.warn('airStickyBlock debugger \n');
+                    var debugTable = {
+                        'windowHeight': {value: windowHeight},
+                        'stopBlockHeight': {value: stopBlockHeight},
+                        'stopBlockWidth': {value: stopBlockWidth},
+                        'stopBlockOffset': {value: stopBlockOffset},
+                        'stickyParentOffset': {value: stickyParentOffset},
+                        'stickyParentWidth': {value: stickyParentWidth},
+                        'stickyHeight': {value: stickyHeight},
+                        'stickyWidth': {value: stickyWidth},
+                        'stickyStop': {value: stickyStop},
+                        'stickyStart': {value: stickyStart},
+                        'stickyAbsolute': {value: stickyAbsolute},
+                        'scrollTop': {value: scrollTop}
+                    };
+                    console.table(debugTable);
                 }
 
                 // Если прокрутка больше чем отступ Sticky Block от начала координат
@@ -134,7 +134,7 @@
                     case 'fixed':
                         $this.css({
                             'position': position,
-                            'top': 0
+                            'top': settings.offsetTop + 'px'
                         }).removeClass('airSticky_absolute airSticky_relative').addClass('airSticky_fixed');
                         break;
                     case 'absolute':
@@ -158,21 +158,37 @@
             } setWidthSticky();
 
             /**
+             * Перерисовка
+             */
+            function render(){
+                setDefault($this);
+                setAmount();
+                if(stickyStop > stickyStart && stopBlockWidth > stickyWidth){
+                    setWidthSticky();
+                    airStickyGo();
+                }
+            }
+
+            /**
              * Обработка событий
              */
-            $(window).bind('resize scroll orientationchange', function(event) {
+            $(window).bind('resize.airStickyBlock scroll.airStickyBlock orientationchange.airStickyBlock', function(event) {
 
-                if(event.type == 'scroll' && stickyStop > stickyStart && stopBlockWidth > stickyWidth) airStickyGo();
+                if(event.type == 'scroll' && stickyStop > stickyStart && stopBlockWidth > stickyWidth){
+                    airStickyGo();
+                }
                 else {
-                    setDefault($this);
-                    setAmount();
-                    if(stickyStop > stickyStart && stopBlockWidth > stickyWidth){
-                        setWidthSticky();
-                        airStickyGo();
-                    }
+                    render();
                 }
 
-            })
+            });
+
+            /**
+             * Свой обработчик перерисовки
+             */
+            $(window).bind('render.airStickyBlock', function(event) {
+                render();
+            });
 
         };
 
